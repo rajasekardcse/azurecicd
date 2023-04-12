@@ -7,6 +7,7 @@ pipeline {
 		stage('Build Maven') {
 		steps{
 			git "https://github.com/rajasekardcse/azurecicd.git"
+			sh "mvn clean install"
 			
 			}
 		}
