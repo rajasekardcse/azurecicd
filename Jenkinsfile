@@ -1,18 +1,20 @@
 pipeline {
 	agent any
-	tools {
-		maven "Maven"
-		}
+	environment {
+		PATH = "C:\Users\rajas\Documents\Learnings.config\Maven.config\apache-maven-3.9.0\bin:$PATH"
+	}
 	stages {
-		stage('Build Maven') {
+		stage('clone code')
+		{
 		steps{
-			checkout([$class: 'GitSCM', branches: [[name:'*/master']], extensions:[], userRemoteConfigs:[[credentialsId: 'git_credentials', url: 'https://github.com/rajasekardcse/azurecicd.git']]])
-			
-			sh "mvn -Dmaven.test.failure.ignore=true clean package"
-			
+			git credentialsId: 'git_credentials', url: 'https://github.com/rajasekardcse/azurecicd.git'
+			}
+		}
+		stage('build') 
+		{
+		steps{
+			sh "mvn clean install"
 			}
 		}
 	}
 }
-
-
