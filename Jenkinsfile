@@ -1,4 +1,4 @@
-pipeline {
+pipelinw {
 	agent any
 	tools {
 		maven "Maven"
@@ -6,7 +6,7 @@ pipeline {
 	stages {
 		stage('Build Maven') {
 		steps{
-			git "https://github.com/rajasekardcse/azurecicd.git"
+			checkout([$class: 'GitSCM', branches: [[name:'*/master']], extensions:[], userRemoteConfigs:[[credentialsId: 'GIT_REPO', url: 'https://github.com/rajasekardcse/azurecicd.git']]])
 			
 			sh "mvn -Dmaven.test.failure.ignore=true clean package"
 			
@@ -14,5 +14,3 @@ pipeline {
 		}
 	}
 }
-
-
