@@ -1,17 +1,19 @@
 pipeline {
 	agent any
-	stages {
-		stage('clone code')
-		{
-		steps{
-			git credentialsId: 'git_credentials', url: 'https://github.com/rajasekardcse/azurecicd.git'
-			}
+	tools {
+		maven 'MAVEN'
 		}
-		stage('build') 
-		{
+	stages {
+		stage('Build Maven') {
 		steps{
-			sh "mvn clean install"
+			echo 'Hello world'
+			checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/rajasekardcse/azurecicd.git']])
+			
+			sh "mvn -Dmaven.test.failure.ignore=true clean package"
+			
 			}
 		}
 	}
 }
+
+
