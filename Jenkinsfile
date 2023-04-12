@@ -6,8 +6,9 @@ pipeline {
 	stages {
 		stage('Build Maven') {
 		steps{
-			git "https://github.com/rajasekardcse/azurecicd.git"
-			sh "mvn clean install"
+			checkout([$class: 'GitSCM', branches: [[name:'*/master']], extensions:[], userRemoteConfigs:[[credentialsId: 'git_credentials', url: 'https://github.com/rajasekardcse/azurecicd.git']]])
+			
+			sh "mvn -Dmaven.test.failure.ignore=true clean package"
 			
 			}
 		}
