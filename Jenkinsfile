@@ -1,4 +1,4 @@
-pipelinw {
+pipeline {
 	agent any
 	tools {
 		maven "Maven"
@@ -14,3 +14,5 @@ pipelinw {
 		}
 	}
 }
+
+
